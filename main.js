@@ -1,4 +1,10 @@
 
+fetch('http://localhost:8000/home/products')
+.then(response => response.json())
+.then(data => { 
+    popularDados(data)
+})
+
 function fazPost(url, body) {
     console.log(body)
     let request = new XMLHttpRequest()
@@ -17,8 +23,6 @@ function cadastrarProduto(){
     let name = document.getElementById("name").value
     let price =  document.getElementById("price").value
     let details = document.getElementById("details").value
-    console.log(name)
-    console.log(price)
 
     body = {
         "name": name,
@@ -27,32 +31,7 @@ function cadastrarProduto(){
     }
 
     fazPost(url, body)
-
-    fetch('http://localhost:8000/home/products')
-        .then(response => response.json())
-        .then(data => { 
-            deletarDados(data)
-    })
-
-    fetch('http://localhost:8000/home/products')
-        .then(response => response.json())
-        .then(data => { 
-            popularDados(data)
-    })
 }
-
-fetch('http://localhost:8000/home/products')
-.then(response => response.json())
-.then(data => { 
-    popularDados(data)
-})
-
-function deletarDados(jsonObject) {
-    for (let i = 0; i < jsonObject.length; i++) {
-        document.getElementById("productTable").deleteRow(i);
-    }
-}
-
 
 function popularDados(jsonObject) {
     let myTable = document.getElementById("productTable");
@@ -73,3 +52,7 @@ function popularDados(jsonObject) {
         cell.appendChild(document.createTextNode(jsonObject[i].details));
     }
 }
+
+
+
+
